@@ -28,7 +28,7 @@ SECRET_KEY = '2eqd6#6iwdz!)+(%$45nc5bkq@fb!0%1t+=%8&s*w6!u%6k%sw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['thawing-fortress-61130.herokuapp.com']
+ALLOWED_HOSTS = ['thawing-fortress-61130.herokuapp.com', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -41,7 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 50
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -81,7 +87,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'question_box_db',
-        'USER': 'nadiamounzih', #'eamanon805', 'raleigh'
+        'USER': 'nadiamounzih',
+        # 'USER': 'emanon805',
+        # 'USER': 'raleigh',
+        # 'USER': 'grahambrown',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '5432',
