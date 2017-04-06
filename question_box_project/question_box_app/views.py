@@ -70,7 +70,8 @@ class AnswerVoteViewSet(viewsets.ModelViewSet):
 
 
 def index(request):
-    return HttpResponse('index')
+    context = {'keyname': 'value'}
+    return render(request, '/Users/nadiamounzih/TIY/Week_7/question_box/question_box_project/question_box_app/templates/question_box_app/index.html', context)
 
 
 def profile(request, user_id):

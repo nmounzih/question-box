@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    {% load static %}
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+    {% load static %}
   </head>
   <body>
     {% block content %}
+    {{ keyname }}
     {% endblock %}
 
     <script
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
       <script src='{% static 'js/index.js' %}'></script>
+
   </body>
 </html>
