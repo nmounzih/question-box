@@ -1,0 +1,14 @@
+{% extends 'question_box_app/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+    <a href='signup'>Register</a>
+    <a href='logout'>Log Out</a>
+  </form>
+{% endblock %}

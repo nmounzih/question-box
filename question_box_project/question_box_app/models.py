@@ -22,7 +22,7 @@ class Answer(models.Model):
     modified = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    is_accepted_answer = models.BooleanField(default=False)
+    is_accepted_answer = models.BooleanField(default=False)#do something with this
 
     def __repr__(self):
         return self.text[:50]

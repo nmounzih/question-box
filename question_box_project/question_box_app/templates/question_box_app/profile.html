@@ -3,12 +3,12 @@
 {% block content %}
 
 <div id='container'>
-  {{ user.id }}
-
+  {{ questions }}
+  {{ user_id }}
+  {{ score }}
   <script
     src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src='{% static 'js/index.js' %}'></script>
+    <script src='{% static 'js/profile.js' %}'></script>
 </div>
 
-{{ keyname }}
 {% endblock %}

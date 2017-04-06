@@ -1,8 +1,10 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from rest_framework import viewsets
 from .models import Question, Answer, QuestionComment, AnswerComment, Tag, QuestionVote, AnswerVote
 from django.contrib.auth.models import User
 from .serializers import QuestionSerializer, AnswerSerializer, QuestionCommentSerializer, AnswerCommentSerializer, UserSerializer, TagSerializer, QuestionVoteSerializer, AnswerVoteSerializer
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -75,8 +77,16 @@ def index(request):
 
 
 def profile(request, user_id):
-    user = User.objects.get(pk=user_id)
-    return HttpResponse('profile: {}'.format(user))
+    context = {'questions': {}, 'user_id': user_id}
+    score = 0
+    downvotes = len(AnswerVote.objects.filter(user_id=user_id, is_upvote=False)) + len(QuestionVote.objects.filter(user_id=user_id, is_upvote=False))
+    answers = Answer.objects.filter(user_id=user_id)
+    questions = Question.objects.filter(user_id=user_id)
+    for item in answers:
+        score += len(item.answervote_set.filter(is_upvote=True)) * 10 - len(item.answervote_set.filter(is_upvote=False)) * 5 + 5*len(questions) - downvotes
+        context['questions'][item.id] = item
+    context['score'] = score
+    return render(request, 'question_box_app/profile.html', context)
 
 
 def question_detail(request, question_id):
@@ -90,3 +100,18 @@ def question_detail(request, question_id):
         context[a.id] = str(a.text)
 
     return HttpResponse('QID: {} Title: {} Score: {}, Answers: {}'.format(q.id, q.title, score, context))
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/index')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
