@@ -9,10 +9,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'first_name', 'last_name')
 
 
-class QuestionSerializer(serializers.HyperlinkedModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', 'title', 'text', 'created', 'modified', 'user_id')
+        fields = ('id', 'title', 'text', 'created', 'modified', 'user')
 
 
 class AnswerSerializer(serializers.HyperlinkedModelSerializer):
