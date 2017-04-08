@@ -1,0 +1,38 @@
+{% extends 'question_box_app/base.html' %}
+{% load static %}
+{% block content %}
+<div id='logic'>
+  <h1>{{question.title}}</h1> <button class='newComment'>Add Comment</button><br>
+  <h2>Score: {{score}} points</h2>
+  {{q.text}}<br>
+  <h3>Answers:</h3>
+  {% for a in answers %}
+  {{ a.text }} <button class='newComment'>Add Comment</button><br>
+  {% endfor %}
+</div>
+<div id='container'>
+  <button id="new">Add Answer</button>
+<div id="newmodal" class="modal">
+  <div class="modal-content">
+    <form name='newA' method='post'>
+      {% csrf_token %}
+      <input id='user_id' type='text' name='user' value="{{user.id}}" style="display:none">
+      {{ user.id }}
+      <input id='question_id' type='text' name='question' value="{{question.id}}" style="display:none">
+      {{ question.id }}
+
+      <button id="newAnswer">Submit</button>
+
+      Text:<input id='text' type='text' name='name'>
+    </form>
+    <span class="close">&times;</span>
+  </div>
+
+</div>
+
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src='{% static 'js/questionDetail.js' %}'></script>
+</div>
+
+{% endblock %}

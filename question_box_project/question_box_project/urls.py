@@ -21,7 +21,7 @@ from django.contrib.auth import views as auth_views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
-router.register(r'questions', views.QuestionViewSet)
+router.register(r'question', views.QuestionViewSet)
 router.register(r'answers', views.AnswerViewSet)
 router.register(r'question_comments', views.QuestionCommentViewSet)
 router.register(r'answer_comments', views.AnswerCommentViewSet)
@@ -36,8 +36,8 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^index/', views.index),
     url(r'^profile/(?P<user_id>[0-9]+)', views.profile),
-    url(r'^question_detail/(?P<question_id>[0-9]+)', views.question_detail),
-    url(r'^login/$', auth_views.login, name='login'),
+    url(r'question_detail/(?P<question_id>[0-9]+)$', views.question_detail),
+    url(r'login/$', auth_views.login, name='login'),
     url(r'signup/$', views.signup, name='signup'),
     url(r'logout/$', auth_views.logout, name='logout'),
 ]

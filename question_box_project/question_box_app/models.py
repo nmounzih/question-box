@@ -7,7 +7,10 @@ class Question(models.Model):
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
+    score = models.IntegerField(default=0, null=True)
+    num_answers = models.IntegerField(default=0, null=True)
+    num_views = models.IntegerField(default=0, null=True)
 
     def __repr__(self):
         return self.title
@@ -20,9 +23,12 @@ class Answer(models.Model):
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    is_accepted_answer = models.BooleanField(default=False)#do something with this
+    user = models.ForeignKey(User)
+    question = models.ForeignKey(Question)
+    is_accepted_answer = models.BooleanField(default=False)
+    score = models.IntegerField(default=0, null=True)
+    num_answers = models.IntegerField(default=0, null=True)
+    num_views = models.IntegerField(default=0, null=True)
 
     def __repr__(self):
         return self.text[:50]
@@ -32,8 +38,8 @@ class Answer(models.Model):
 
 
 class QuestionComment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
+    question = models.ForeignKey(Question)
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
@@ -45,8 +51,8 @@ class QuestionComment(models.Model):
 
 
 class AnswerComment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
+    answer = models.ForeignKey(Answer)
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
@@ -69,8 +75,8 @@ class Tag(models.Model):
 
 
 class QuestionVote(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
+    question = models.ForeignKey(Question)
     is_upvote = models.BooleanField()
 
     def __repr__(self):
@@ -81,8 +87,8 @@ class QuestionVote(models.Model):
 
 
 class AnswerVote(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
+    answer = models.ForeignKey(Answer)
     is_upvote = models.BooleanField()
 
     def __repr__(self):

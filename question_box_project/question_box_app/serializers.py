@@ -15,10 +15,10 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'text', 'created', 'modified', 'user')
 
 
-class AnswerSerializer(serializers.HyperlinkedModelSerializer):
+class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = ('id', 'text', 'created', 'modified', 'question_id', 'user_id', 'is_accepted_answer')
+        fields = ('id', 'text', 'created', 'modified', 'question', 'user', 'is_accepted_answer')
 
 
 class QuestionCommentSerializer(serializers.HyperlinkedModelSerializer):

@@ -1,0 +1,31 @@
+{% extends 'question_box_app/base.html' %}
+{% load static %}
+{% block content %}
+
+<div id='container'>
+  <button id="new">New Question</button>
+
+<!-- The Modal -->
+<div id="newmodal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <form name='newQ' method='post'>
+      {% csrf_token %}
+      <input id='user_id' type='text' name='user_id' value="{{user.id}}" style="display:none">
+      <button id="newQuestion">Submit</button>
+
+      Title:<input id='title' type='text' name='name'>
+      Text:<input id='text' type='text' name='name'>
+    </form>
+    <span class="close">&times;</span>
+  </div>
+
+</div>
+
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src='{% static 'js/index.js' %}'></script>
+</div>
+
+{% endblock %}

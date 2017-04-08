@@ -72,8 +72,16 @@ class AnswerVoteViewSet(viewsets.ModelViewSet):
 
 
 def index(request):
-    context = {'keyname': 'value'}
+    context = {}
+    all_questions = Question.objects.all()
+    for question in all_questions:
+        question.score = len(question.questionvote_set.filter(is_upvote=True)) - len(question.questionvote_set.filter(is_upvote=False))
+        question.num_answers = len(Answer.objects.filter(question_id=question.id))
+        question.save()
+    all_questions = Question.objects.order_by('-created')
+    context['all_questions'] = all_questions
     return render(request, 'question_box_app/index.html', context)
+
 
 
 def profile(request, user_id):
@@ -91,15 +99,20 @@ def profile(request, user_id):
 
 def question_detail(request, question_id):
     q = Question.objects.get(pk=question_id)
-
+    q.num_views += 1
+    q.save()
     score = len(q.questionvote_set.filter(is_upvote=True)) - len(q.questionvote_set.filter(is_upvote=False))
     answers = q.answer_set.filter(question_id=question_id)
-
-    context = {}
+    context = {'answers': []}
+    context['question'] = q
+    context['score'] = score
+    context['username'] = User.objects.get(id=q.user_id)
+    context['num_answers'] = len(answers)
+    context['user_id'] = request.user.id
     for a in answers:
-        context[a.id] = str(a.text)
-
-    return HttpResponse('QID: {} Title: {} Score: {}, Answers: {}'.format(q.id, q.title, score, context))
+        context['answers'].append(a)
+    return render(request, 'question_box_app/question_detail.html', context)
+    # return HttpResponse('QID: {} Title: {} Score: {}, Answers: {}'.format(q.id, q.title, score, context))
 
 
 def signup(request):

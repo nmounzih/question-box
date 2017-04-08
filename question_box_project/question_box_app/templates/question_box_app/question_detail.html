@@ -1,0 +1,121 @@
+{% extends 'question_box_app/base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <title>Stack Overclone</title>
+  <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/question_detail.css' %}">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+
+<!--- end NavBar--->
+
+
+  <!-- First Container -->
+  <div class="container-fluid bg-1 text-center">
+
+    <div id='subheader'>
+      <h2>{{question.title}}</h2>
+      <div class='ask-btn'><button id='ask' type="button">Ask Question</button></div>
+    </div>
+
+    <div class='question-container'>
+
+      <nav class="votebox">
+
+          <div class='upVote btn'>+</div>
+          <div class='voteCount'>{{question.score}}</div>
+          <div class='downVote btn'>-</div>
+
+      </nav>
+
+      <div class='blah'>
+
+        <article class="q-body"> <!--- 1 --->
+            <p> {{question.text}}</p>
+        </article>
+
+        <div class="blah-blah"> <!--- 2 --->
+
+          <div class="question-tags">  <!--- 21 --->
+            <div class='tag'>Nadja</div>
+            <div class='tag'>Luis</div>
+          </div>
+
+          <div class="user-details"> <!--- 22 --->
+            <div class="time detail">{{question.created}}</div>
+            <div class="name detail"><a class="username" href"/profile/{{question.user_id}}">{{username}}</a></div>
+          </div>
+
+        </div>
+
+        <footer class="ask-comment"><a href='#ask'>Add a comment</a></footer> <!--- 3 --->
+
+      </div>
+
+    </div>
+
+<!--- Answers begin--->
+  <div id='subheader-answer'>
+    <h3>{{num_answers}} Answers</h3>
+  </div>
+{% for a in answers %}
+  <div class='question-container answer-block'>
+  <nav class="votebox">
+
+  <div class='upVote btn'>+</div>
+  <div class='voteCount'>{{a.score}}</div>
+  <div class='downVote btn'>-</div>
+
+  </nav>
+
+  <div class='blah'>
+
+  <article class="q-body"> <!--- 1 --->
+  <p>{{a.text}}</p>
+  </article>
+
+  <div class="blah-blah"> <!--- 2 --->
+  <div></div>
+
+
+  <div class="user-details"> <!--- 22 --->
+  <div class="time detail">{{a.created}}</div>
+  <div class="name detail"><a class="username" href"user page">{{username}}</a></div>
+  </div>
+
+  </div>
+
+  <footer class="ask-comment"><a href='#ask'>Add a comment</a></footer>
+  </div>
+
+
+  </div>
+<!--- Answers ends--->
+{% endfor %}
+
+
+  <div id='answer-text'>
+
+      <div class='your-answer-head'>
+        <h3>Your Answer</h3>
+      </div>
+      <form name='newA' method='post'>
+      {% csrf_token %}
+      <input id='user_id' type='text' name='user_id' value="{{user.id}}" style="display:none">
+      <input id='question_id' type='text' name='question' value="{{question.id}}" style="display:none">
+      <div class='ask-btn post-answer'><button id='newAnswer'>submit</button>
+      <textarea id='text' name='answer' rows='15' cols='90', placeholder='Answer text...'></textarea>
+
+      </form>
+      </div>
+
+  </div>
+<script src='{% static 'js/questionDetail.js' %}'></script>
+
+</div>
+
+{% endblock %}

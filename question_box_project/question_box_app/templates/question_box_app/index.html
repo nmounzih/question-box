@@ -2,14 +2,109 @@
 {% load static %}
 {% block content %}
 
-<div id='container'>
-  {{ user.id }}
+<head>
 
 
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src='{% static 'js/index.js' %}'></script>
+
+  <title>Stack Overclone</title>
+  <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+<!-- <div id="notify-container"></div>
+
+  <header id='nav-bar'>
+
+    <div id='account'>
+      Welcome, Luis | <a id='logout' href='/logout'>Logout</a>
+    </div>
+
+  </header> -->
+
+<!-- Nav bar -->
+
+
+
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+  <!-- <h3 class="body-head">Stack Overclone</h3> -->
+  <section class='opening-div'><div class="opening-div-text">Our StackClone community contains {u.Count} users and {q.Count} questions</div></section>
+
+<!-- Second Container -->
+  <div id='subheader'>
+    <h2>Questions</h2>
+    <!--- Button to ask question--->
+    <div class='ask-btn'><button id='new' type="button">Ask Question</button></div>
+    <div id="newmodal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <form name='newQ' method='post'>
+          {% csrf_token %}
+          <input id='user_id' type='text' name='user_id' value="{{user.id}}" style="display:none">
+          <button id="newQuestion">Submit</button>
+
+          Title:<input id='title' type='text' name='name'>
+          Text:<input id='text' type='text' name='name'>
+        </form>
+        <span class="close">&times;</span>
+      </div>
+
+    </div>
+  </div>
+
+<!-- Main Container -->
+{% for question in all_questions %}
+  <div class='main-container' , id='question_list'>
+
+    <div id='question-field-id' class='question-field'> <!--- QUESTION --->
+
+      <div class='question-review'> <!--- 1 --->
+        <div class='votes box'>
+          <span>
+          {{question.score}}
+          </span>
+          <div>votes</div>
+        </div>
+        <div class='answers box'>
+          <span>{{ question.num_answers }}</span>
+          <div>answers</div>
+        </div>
+
+        <div class='views box'>
+          <span>{{ question.num_views }}</span>
+          <div>views</div>
+        </div>
+      </div>
+
+      <div id='question-details-id' class='question-details'>
+
+        <h3><a href="/question_detail/{{question.id}}">{{ question.title }}</a></h3>
+
+        <div class='qd-details'>
+          <div class='question-tags'>
+            <div class='tag'><a href"user page">{{ q_tag }}</a></div>
+            <div class='tag'><a href"user page">{{ q_tag }}</a></div>
+          </div>
+
+          <div class='user-details'>
+            <div class="time detail">{{ time_created }}</div>
+            <div class="name detail"><a class="username" href"user page">{{ user.name }}</a></div>
+            <div class="score detail">{{ user.score }}</div>
+          </div>
+      </div>
+      </div>
+
+
+    </div> <!---  end QUESTION --->
+{% endfor %}
+  </div>
+
 </div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src='{% static 'js/index.js' %}'></script>
 
-{{ keyname }}
+</body>
 {% endblock %}
