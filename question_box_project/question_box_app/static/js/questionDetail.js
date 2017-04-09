@@ -76,20 +76,23 @@ function newAnswerUpvote(e) {
 
 function newAnswerDownvote(e) {
   e.preventDefault();
+  console.log(e)
+  console.log(e.target.attributes.aid)
+  var id = e.target.attributes.aid
   var post_data = {
                     csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
                     user: $("#user_id").val(),
-                    answer: $('#answer_id').val(),
+                    answer: id,
                     is_upvote: false,
                   };
-  console.log(post_data);
+  console.log(post_data.answer);
 
   var settings = {
     method: "POST",
     url: "/api/answer_votes/",
     data: post_data
   }
-  $.ajax(settings);
+  $.ajax(settings).done();
   console.log('test1');
 }
 
