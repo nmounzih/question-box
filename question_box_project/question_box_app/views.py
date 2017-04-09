@@ -100,16 +100,17 @@ def profile(request, user_id):
 def question_detail(request, question_id):
     q = Question.objects.get(pk=question_id)
     q.num_views += 1
+    q.score = len(q.questionvote_set.filter(is_upvote=True)) - len(q.questionvote_set.filter(is_upvote=False))
     q.save()
-    score = len(q.questionvote_set.filter(is_upvote=True)) - len(q.questionvote_set.filter(is_upvote=False))
     answers = q.answer_set.filter(question_id=question_id)
     context = {'answers': []}
     context['question'] = q
-    context['score'] = score
     context['username'] = User.objects.get(id=q.user_id)
     context['num_answers'] = len(answers)
     context['user_id'] = request.user.id
     for a in answers:
+        a.score = len(a.answervote_set.filter(is_upvote=True)) - len(a.answervote_set.filter(is_upvote=False))
+        a.save()
         context['answers'].append(a)
     return render(request, 'question_box_app/question_detail.html', context)
     # return HttpResponse('QID: {} Title: {} Score: {}, Answers: {}'.format(q.id, q.title, score, context))

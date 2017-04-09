@@ -25,10 +25,21 @@
     <div class='question-container'>
 
       <nav class="votebox">
-
-          <div class='upVote btn'>+</div>
+        <form name='questionupvote', method='post'>
+          {% csrf_token %}
+          <input id='user_id' type='text' name='user_id' value="{{user.id}}" style="display:none">
+          <input id='question_id' type='text' name='question' value="{{question.id}}" style="display:none">
+          <input id='is_upvote' type='text' name='is_upvote' value= "True" style="display:none">
+          <div class='btn' id='qUpvoteButton'>+</div>
+        </form>
           <div class='voteCount'>{{question.score}}</div>
-          <div class='downVote btn'>-</div>
+        <form name='questiondownvote', method='post'>
+          {% csrf_token %}
+          <input id='user_id' type='text' name='user_id' value="{{user.id}}" style="display:none">
+          <input id='question_id' type='text' name='question' value="{{question.id}}" style="display:none">
+          <input id='is_upvote' type='text' name='is_upvote' value=0 style="display:none">
+          <div class='btn' id='qDownvoteButton'>-</div>
+        </form>
 
       </nav>
 
@@ -65,10 +76,22 @@
 {% for a in answers %}
   <div class='question-container answer-block'>
   <nav class="votebox">
-
-  <div class='upVote btn'>+</div>
+    <form name='answerupvote', method='post'>
+      {% csrf_token %}
+      <input id='user_id' type='text' name='user_id' value="{{user.id}}" style="display:none">
+      <input id='answer_id' type='text' name='answer' value="{{a.id}}" style="display:none">
+      <input id='is_upvote' type='text' name='is_upvote' value=0 style="display:none">
+      <div class='upVote btn' id='aUpvoteButton'>+</div>
+    </form>
   <div class='voteCount'>{{a.score}}</div>
-  <div class='downVote btn'>-</div>
+  <form name='answerdownvote', method='post'>
+    {% csrf_token %}
+    <input id='user_id' type='text' name='user_id' value="{{user.id}}" style="display:none">
+    <input id='answer_id' type='text' name='answer' value="{{a.id}}" style="display:none">
+    <input id='is_upvote' type='text' name='is_upvote' value=0 style="display:none">
+    <div class='downVote btn' id='aDownvoteButton'>-</div>
+  </form>
+
 
   </nav>
 

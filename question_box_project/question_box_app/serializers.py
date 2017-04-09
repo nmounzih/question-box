@@ -39,13 +39,13 @@ class TagSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'text', 'question_id')
 
 
-class QuestionVoteSerializer(serializers.HyperlinkedModelSerializer):
+class QuestionVoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionVote
-        fields = ('id', 'user_id', 'question_id', 'is_upvote')
+        fields = ('id', 'user', 'question', 'is_upvote')
 
 
-class AnswerVoteSerializer(serializers.HyperlinkedModelSerializer):
+class AnswerVoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerVote
-        fields = ('id', 'user_id', 'answer_id', 'is_upvote')
+        fields = ('id', 'user', 'answer', 'is_upvote')
