@@ -83,17 +83,17 @@ def index(request):
     return render(request, 'question_box_app/index.html', context)
 
 
-
 def profile(request, user_id):
-    context = {'questions': {}, 'user_id': user_id}
     score = 0
     downvotes = len(AnswerVote.objects.filter(user_id=user_id, is_upvote=False)) + len(QuestionVote.objects.filter(user_id=user_id, is_upvote=False))
     answers = Answer.objects.filter(user_id=user_id)
     questions = Question.objects.filter(user_id=user_id)
-    for item in answers:
-        score += len(item.answervote_set.filter(is_upvote=True)) * 10 - len(item.answervote_set.filter(is_upvote=False)) * 5 + 5*len(questions) - downvotes
-        context['questions'][item.id] = item
+    context = {'questions': questions, 'answers': answers, 'user_id': user_id, 'username': User.objects.get(id=user_id).username}
+    for answer in answers:
+        score += len(answer.answervote_set.filter(is_upvote=True)) * 10 - len(answer.answervote_set.filter(is_upvote=False)) * 5 + 5*len(questions) - downvotes
     context['score'] = score
+    context['num_questions'] = len(questions)
+    context['num_answers'] = len(answers)
     return render(request, 'question_box_app/profile.html', context)
 
 

@@ -2,13 +2,84 @@
 {% load static %}
 {% block content %}
 
-<div id='container'>
-  {{ questions }}
-  {{ user_id }}
-  {{ score }}
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src='{% static 'js/profile.js' %}'></script>
+<head>
+  <title>Stack Overclone</title>
+  <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<div class='nav-container'>
+
+  <div class="navbar">
+    <img id='logo' src='https://cdn.sstatic.net/Sites/stackoverflow/company/img/logos/so/so-logo.png?v=9c558ec15d8a' alt='StackOverFlow'/>
+
+    <div class='nav-tags'>
+      <div id='nav-questions'><a href="/index/">Questions</a></div>
+      <div id='nav-answers'><a href="Answers">Answers</a></div>
+      <div id='nav-users'><a href="Users">Users</a></div>
+    </div>
+
+    <div id='search'>
+      <input type='text' name='search' placeholder="Search...">
+    </div>
+
+    <div class='userinfo'> <!--- Change when user is logged in--->
+      <div id='current-user'><h4>{{username}}</h4></div>
+      <div id='default-icon'><img src="https://www.gravatar.com/avatar/1edef60f411b3d6a1f7c243cffd276e9?s=48&amp;d=identicon&amp;r=PG&amp;f=1" alt="" width="24" height="24" class="-avatar js-avatar-me"></div>
+    </div>
+
+  </div>
 </div>
 
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+
+  <div id='subheader'>
+    <div><h2>{{username}}</h2></div>
+    <div id='score'><h3>Score: {{ score }}</h3></div> <!--- User score --->
+  </div>
+
+  <div class='summary-bar'>
+    <div class='summary-box'>summary</div>
+  </div>
+
+  <div class='section-header'>
+    <div class='title'><a href='user-question-details'><strong>Questions </strong><span class="activity-cnt">{{ num_questions }}</span></a></div> <!---No. of Question objects --->
+  </div>
+
+  <article class="list-body">
+    {% for question in questions %}
+      <!--- iterate over questions --->
+      <div class='question-list-item'>
+        <div class='vote-box'>
+          <div><span>{{ question.score }}</span></div>
+        </div>
+        <div><a href='question_detail/{{question.id}}'>{{ question.title }}</a></div>
+      </div>
+      <!--- end --->
+      {% endfor %}
+
+  </article>
+
+  <div class='section-header'>
+    <div class='title'><a href='user-question-details'><strong>Answers </strong><span class="activity-cnt">{{ num_answers }}</span></a></div><!---No. of Answer objects --->
+  </div>
+
+  <article class="list-body">
+    {% for answer in answers %}
+      <!--- iterate over answers --->
+      <div class='question-list-item'>
+        <div class='vote-box'>
+          <div><span>{{ answer.score }}</span></div>
+        </div>
+        <div><a href='question_detail/{{answer.question_id}}'>{{ answer }}</a></div>
+      </div>
+      <!--- end --->
+      {% endfor %}
+
+  </article>
+
+
+</div>
 {% endblock %}
