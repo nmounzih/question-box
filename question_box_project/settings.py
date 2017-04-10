@@ -30,7 +30,7 @@ SECRET_KEY = '2eqd6#6iwdz!)+(%$45nc5bkq@fb!0%1t+=%8&s*w6!u%6k%sw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['thawing-fortress-61130.herokuapp.com', 'https://quiet-retreat-14165.herokuapp.com/', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['thawing-fortress-61130.herokuapp.com', 'quiet-retreat-14165.herokuapp.com/', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
