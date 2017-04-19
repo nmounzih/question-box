@@ -56,13 +56,15 @@ function newQuestionDownvote(e) {
 }
 
 function newAnswerUpvote(e) {
-  e.preventDefault();
+  // e.preventDefault();
+  console.log(e.currentTarget.id);
   var post_data = {
                     csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
                     user: $("#user_id").val(),
-                    answer: $('#answer_id').val(),
+                    answer: e.currentTarget.id,
                     is_upvote: true,
                   };
+
   console.log(post_data);
 
   var settings = {
@@ -71,18 +73,17 @@ function newAnswerUpvote(e) {
     data: post_data
   }
   $.ajax(settings);
-  console.log('test1');
 }
 
 function newAnswerDownvote(e) {
-  e.preventDefault();
+  // e.preventDefault();
   console.log(e)
   console.log(e.target.attributes.aid)
   var id = e.target.attributes.aid
   var post_data = {
                     csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
                     user: $("#user_id").val(),
-                    answer: id,
+                    answer: e.currentTarget.id,
                     is_upvote: false,
                   };
   console.log(post_data.answer);

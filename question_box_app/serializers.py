@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Question, Answer, QuestionComment, AnswerComment, Tag, QuestionVote, AnswerVote, User
 
-
+# self.context['request'].user
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:

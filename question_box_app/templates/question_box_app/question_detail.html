@@ -81,15 +81,15 @@
       <input id='user_id' type='text' name='user_id' value="{{ user.id }}" style="display:none">
       <input id='answer_id{{answer.id}}' type='text' name='answer' value="{{ a.id }}" style="display:none">
       <input id='is_upvote' type='text' name='is_upvote' value=0 style="display:none">
-      <div class='upVote btn'  id='aUpvoteButton'>+</div>
+      <div class='upVote btn'  id={{a.id}}>+</div>
     </form>
   <div class='voteCount'>{{a.score}}</div>
   <form name='answerdownvote', method='post'>
     {% csrf_token %}
     <input id='user_id' type='text' name='user_id' value="{{user.id}}" style="display:none">
-    <input id='answer_id' type='text' name='answer' value="{{ a.id }}" style="display:none">
+    <input id='answer_id{{answer.id}}' type='text' name='answer' value="{{ a.id }}" style="display:none">
     <input id='is_upvote' type='text' name='is_upvote' value=0 style="display:none">
-    <div class='downVote btn' aid={{a.id}} id='{{a.id}}'>-</div>
+    <div class='downVote btn' aid={{a.id}} id={{a.id}}>-</div>
   </form>
 
 

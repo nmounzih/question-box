@@ -96,7 +96,7 @@ def profile(request, user_id):
     context['num_answers'] = len(answers)
     return render(request, 'question_box_app/profile.html', context)
 
-
+# TODO move score to elsewhere
 def question_detail(request, question_id):
     q = Question.objects.get(pk=question_id)
     q.num_views += 1
@@ -106,6 +106,7 @@ def question_detail(request, question_id):
     context = {'answers': []}
     context['question'] = q
     context['username'] = User.objects.get(id=q.user_id)
+    # score and num moved to models?
     context['num_answers'] = len(answers)
     context['user_id'] = request.user.id
     for a in answers:
